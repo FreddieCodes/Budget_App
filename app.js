@@ -8,15 +8,29 @@ var budgetController = (function(){
 // UI CONTROLLER
 var UIController = (function(){
     //  store all query selectors etc in here
+    
+    var DOMstrings = {
+        inputType: '.add__type',
+        inputDescription: '.add__description',
+        inputValue: '.add__value',
+        inputBtn: '.add__btn'
+    }
 
     return {
         getInput: function(){
             return{
-                type: document.querySelector('.add__type').value, // reads value of .add__type class (either inc or exp)
-                description: document.querySelector('.add__description').value,
-                value: document.querySelector('.add__value').value
+                type: document.querySelector(DOMstrings.inputType).value, // reads value of .add__type class (either inc or exp)
+                description: document.querySelector(DOMstrings.inputDescription).value,
+                value: document.querySelector(DOMstrings.inputValue).value
             }
+        },
+
+        getDOMstrings: function(){
+            // exposing the DOMstrings object to the public.
+            return DOMstrings;
         }
+
+
     }
 
 })();
@@ -24,6 +38,8 @@ var UIController = (function(){
 
 // GLOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl){
+
+    var DOM = UICtrl.getDOMstrings();
 
     var ctrlAddItem = function(){
         // 1. Get the field input data
@@ -38,17 +54,17 @@ var controller = (function(budgetCtrl, UICtrl){
 
         // 5. Display the budget on the UI
 
-       console.log('it works');
+    //    console.log('it works');
     }
 
-   document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
+   document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
 
    // adds the Event Listener to the global
    document.addEventListener('keypress', function(event){
     //    .which is for older browsers
        if (event.keyCode === 13 || event.which === 13){
            ctrlAddItem();
-           console.log('ENTER was pressed');
+        //    console.log('ENTER was pressed');
        }
    });
 
