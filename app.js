@@ -1,13 +1,24 @@
 // BUDGET CONTROLLER
 var budgetController = (function(){
-    
+    //  Some code
 })();
 
 
 
 // UI CONTROLLER
 var UIController = (function(){
-    // some code
+    //  store all query selectors etc in here
+
+    return {
+        getInput: function(){
+            return{
+                type: document.querySelector('.add__type').value, // reads value of .add__type class (either inc or exp)
+                description: document.querySelector('.add__description').value,
+                value: document.querySelector('.add__value').value
+            }
+        }
+    }
+
 })();
 
 
@@ -16,6 +27,8 @@ var controller = (function(budgetCtrl, UICtrl){
 
     var ctrlAddItem = function(){
         // 1. Get the field input data
+        var input = UICtrl.getInput();
+        console.log(input);
 
         // 2. Add the item to the budget controller
 
@@ -24,7 +37,7 @@ var controller = (function(budgetCtrl, UICtrl){
         // 4. Calculate the budget
 
         // 5. Display the budget on the UI
-        
+
        console.log('it works');
     }
 
