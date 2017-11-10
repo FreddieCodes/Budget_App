@@ -194,6 +194,14 @@ var UIController = (function(){
 
     };
 
+    // nodeListForEach function, reusable
+    var nodeListForEach = function(list, callback){
+        for (var i = 0; i < list.length; i++) {
+            callback(list[i], i)
+        }
+    
+    };
+
     return {
         getInput: function(){
             return{
@@ -269,14 +277,13 @@ var UIController = (function(){
 
             // some code
             var fields = document.querySelectorAll(DOMstrings.expensesPercLabel);
-            // nodeListForEach function, reusable
-            var nodeListForEach = function(list, callback){
-                for (var i = 0; i < list.length; i++) {
-                    callback(list[i], i)
-                }
+            // // nodeListForEach function, reusable
+            // var nodeListForEach = function(list, callback){
+            //     for (var i = 0; i < list.length; i++) {
+            //         callback(list[i], i)
+            //     }
 
-            }
-
+            // }
 
             nodeListForEach(fields, function(current, index){
                 if (percentages[index] > 0) {
@@ -297,13 +304,29 @@ var UIController = (function(){
             year = now.getFullYear();
             document.querySelector(DOMstrings.dateLabel).textContent = months[month] + ' ' + year;
         },
+        //  changes the focus colour of the input boxes to red when toggled
+        changedType: function(){
+            var fields;
+            
+            fields = document.querySelectorAll(
+                DOMstrings.inputType + ',' +
+                DOMstrings.inputDescription + ',' +
+                DOMstrings.inputValue);
+
+                nodeListForEach(fields, function(cur){
+                    cur.classList.toggle('red-focus');
+                });
+                // changes the add button to red
+                document.querySelector(DOMstrings.inputBtn).classList.toggle('red');
+
+        },
 
         getDOMstrings: function(){
             // exposing the DOMstrings object to the public.
             return DOMstrings;
         }
 
-    }
+    };
 
 })();
 
@@ -327,6 +350,8 @@ var controller = (function(budgetCtrl, UICtrl){
         });
 
         document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
+
+        document.querySelector(DOM.inputType).addEventListener('change', UICtrl.changedType);
 
     }
 
