@@ -156,29 +156,18 @@ var UIController = (function(){
 
     var formatNumber = function(num, type){
         var numSplit, int, dec;
-        /*
-         + or - before number
-         exactly 2 decimal points
-         comma seperating the thousands
 
-         2310.4567 => + 2310.46
-         */
         num = Math.abs(num)
         num = num.toFixed(2);
 
-        // splits number string at .
         numSplit = num.split('.')
         
-        // integer
         int = numSplit[0]
-        // decimal
         dec = numSplit[1]
-        // comma seperating the thousands
+
         if (int.length > 3) {
             int = int.substr(0, int.length - 3) + ',' + int.substr(int.length - 3, 3); // input of 3210 => 3,210
         }
-
-        //  ternary operator
 
         return (type === 'exp' ? '-' : '+') + ' ' + int + '.' + dec;
 
@@ -195,7 +184,7 @@ var UIController = (function(){
     return {
         getInput: function(){
             return{
-                type: document.querySelector(DOMstrings.inputType).value, // reads value of .add__type class (either inc or exp)
+                type: document.querySelector(DOMstrings.inputType).value,
                 description: document.querySelector(DOMstrings.inputDescription).value,
                 value: parseFloat(document.querySelector(DOMstrings.inputValue).value)
             }
@@ -203,7 +192,6 @@ var UIController = (function(){
 
         addListItem: function(obj, type){
             var html, newHtml, element;
-            // Create HTML string with placeholder text
             if (type === 'inc') {
                 element = DOMstrings.incomeContainer
 
@@ -214,11 +202,9 @@ var UIController = (function(){
                 html = '<div class="item clearfix" id="exp-%id%"> <div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>' 
             }
             
-            // Replace the placeholder text with some actual data
             newHtml = html.replace('%id%', obj.id);
             newHtml = newHtml.replace('%description%', obj.description);
             newHtml = newHtml.replace('%value%', formatNumber(obj.value, type));
-            // Insert the HTML into the DOM
 
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
             
@@ -227,7 +213,6 @@ var UIController = (function(){
         deleteListItem: function(selectorID){
             var el;
             el = document.getElementById(selectorID);
-            // you can only remove Child so you have to target the ParentNode first
             el.parentNode.removeChild(el);
 
         },
@@ -236,13 +221,11 @@ var UIController = (function(){
             var fields, fieldsArr;
 
             fields = document.querySelectorAll(DOMstrings.inputDescription + ', ' + DOMstrings.inputValue)
-            // uses the array objects slice method on fields.
+
             fieldsArr = Array.prototype.slice.call(fields);
             fieldsArr.forEach(function (current, index, array){
-                //  clears all the .values in the array
                 current.value = "";
             })
-            // sets focus back to first element of array
             fieldsArr[0].focus()
         },
 
