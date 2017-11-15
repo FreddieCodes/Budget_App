@@ -75,7 +75,6 @@ var controller = (function(budgetCtrl, UICtrl){
 
     return {
         init: function(){
-            console.log('application has started');
             setupEventListeners();
             UICtrl.displayMonth();
             UICtrl.displayBudget({
