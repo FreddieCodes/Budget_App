@@ -1,4 +1,3 @@
-// GLOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl){
 
     var setupEventListeners = function(){
